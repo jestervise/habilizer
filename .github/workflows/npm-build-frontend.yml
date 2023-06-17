@@ -1,5 +1,4 @@
-name: Build frontend code
-
+name: Deployment
 on:
   push:
     branches: [ "main" ]
@@ -23,5 +22,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Build
       run: |
+        cd frontend
         npm install
-        npx webpack
+        npm run build
+        
