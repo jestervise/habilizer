@@ -1,16 +1,17 @@
-import { useState } from "react";
-
-import { StickyNoteType } from "../../types";
 import StickyNote from "../StickyNote/StickyNote";
 import NewStickyNote from "../StickyNote/NewStickyNote";
 import { useStickyNoteStore } from "../../hook/useStore";
 
 const Dashboard = () => {
-  const stickyNotes = useStickyNoteStore((state) => state.stickyNotes);
+  const { stickyNotes } = useStickyNoteStore();
 
   const renderStickyNotes = () => {
     return stickyNotes.map((stickyNote) => (
-      <StickyNote key={stickyNote.id} textContent={stickyNote.message} />
+      <StickyNote
+        key={stickyNote.id}
+        id={stickyNote.id}
+        textContent={stickyNote.message}
+      />
     ));
   };
   return (

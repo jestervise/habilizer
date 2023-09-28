@@ -1,23 +1,25 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import { useStickyNoteStore } from "../../hook/useStore";
 
 const NewStickyNote: FunctionComponent = () => {
-  const addStickyNote = useStickyNoteStore(
-    (state: { stickyNotes: StickyNoteType[] }) => state.addStickyNote
-  );
+  const { addStickyNote, stickyNotes } = useStickyNoteStore();
+
   const addNewStickyNote = () => {
+    if (stickyNotes.find((stickyNote) => stickyNote.message === "")) return;
+
     addStickyNote({
-      message: "sdsdsdsdsdsdsd",
-      id: 1,
+      message: "",
+      id: Math.floor(Math.random() * 1000),
       created: new Date(),
     });
   };
+
   return (
     <div
       className="drop-shadow-md w-52 h-52 
     cursor-pointer
      hover:text-white text-xs text-zinc-950 rounded 
-     m-1 p-5 hover:bg-blue-400 rounded flex justify-center items-center
+     m-1 p-5 hover:bg-blue-400 flex justify-center items-center
      bg-blue-100"
       onClick={() => addNewStickyNote()}
     >
