@@ -1,6 +1,7 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { useStickyNoteStore } from "../../hook/useStore";
 import { ConfirmModal } from "../ConfirmModal/ConfirmModal";
+import Check from "./Check/Check";
 
 interface Props {
   textContent?: string;
@@ -27,7 +28,7 @@ const StickyNote: FunctionComponent<Props> = ({ textContent, id }) => {
     <div
       className="drop-shadow-md w-52 h-52 
     cursor-pointer
-     hover:text-white text-xs text-zinc-950 rounded m-1"
+     hover:text-white text-xs text-zinc-950 rounded m-1 flex flex-col"
     >
       {displayModal ? <ConfirmModal noteId={id} /> : null}
       <svg
@@ -47,11 +48,18 @@ const StickyNote: FunctionComponent<Props> = ({ textContent, id }) => {
       </svg>
       <textarea
         name="sticky-note"
+        placeholder="Title"
+        maxLength={20}
+        className="w-full h-1/6 resize-none hover:text-black max-h-max overflow-hidden p-5 hover:bg-slate-400 text-left bg-white"
+      ></textarea>
+      <textarea
+        name="sticky-note"
         placeholder="Please enter text"
         onChange={(e) => setStickyNoteText(id, e.target.value)}
         value={stickyNotes.find((stickyNote) => stickyNote.id === id)?.message}
-        className="w-full h-full p-5 hover:bg-slate-400 rounded text-center bg-white"
+        className="w-full h-5/6 p-5 hover:bg-slate-400 text-left bg-white"
       ></textarea>
+      <Check />
     </div>
   );
 };
