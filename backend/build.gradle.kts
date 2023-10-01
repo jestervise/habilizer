@@ -6,8 +6,6 @@ plugins {
 	kotlin("jvm") version "1.8.21"
 	kotlin("plugin.spring") version "1.8.21"
 	kotlin("plugin.allopen") version "1.8.0"
-	id("org.hibernate.orm") version "6.2.5.Final"
-
 }
 
 group = "com.cogniweb"
@@ -28,21 +26,27 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-amqp")
-	implementation("org.springframework.boot:spring-boot-starter-graphql")
+//	implementation("org.springframework.boot:spring-boot-starter-amqp")
+//	implementation("org.springframework.boot:spring-boot-starter-graphql")
 //	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+	runtimeOnly("org.postgresql:postgresql")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	runtimeOnly("io.r2dbc:r2dbc-postgresql:0.8.5.RELEASE")
 	implementation("io.springfox:springfox-swagger2:3.0.0")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-maven-noarg")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.liquibase:liquibase-core:4.4.3")
+
+	compileOnly("org.flywaydb:flyway-core:9.8.1")
 
 	//test only
-	runtimeOnly ("com.h2database:h2")
-
 	compileOnly("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-webflux")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
+//	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
 	compileOnly("org.springframework.boot:spring-boot-starter-web")
@@ -51,6 +55,7 @@ dependencies {
 	testImplementation("org.springframework.amqp:spring-rabbit-test")
 	testImplementation("org.springframework.graphql:spring-graphql-test")
 	testImplementation("org.springframework.security:spring-security-test")
+
 }
 
 tasks.withType<KotlinCompile> {
@@ -58,12 +63,6 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs += "-Xjsr305=strict"
 		jvmTarget = "17"
 	}
-}
-
-allOpen {
-	annotation("jakarta.persistence.Entity")
-	annotation("jakarta.persistence.Embeddable")
-	annotation("jakarta.persistence.MappedSuperclass")
 }
 
 tasks.withType<Test> {

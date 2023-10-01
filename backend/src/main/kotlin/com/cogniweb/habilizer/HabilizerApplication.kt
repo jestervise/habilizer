@@ -1,10 +1,12 @@
 package com.cogniweb.habilizer
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.autoconfigure.r2dbc.R2dbcAutoConfiguration
 import org.springframework.boot.runApplication
+import org.springframework.data.r2dbc.config.EnableR2dbcAuditing
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 
-@SpringBootApplication(exclude = [R2dbcAutoConfiguration::class])
+@SpringBootApplication
+@EnableR2dbcAuditing
 class HabilizerApplication
 
 fun main(args: Array<String>) {
